@@ -17,11 +17,11 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel>
             <TextBox Text="{Binding ExampleOfTextBinding}"></TextBox>
             <ListView>
-                
+
             </ListView>
 
         </StackPanel>
@@ -30,6 +30,25 @@
 
         <StackPanel Grid.Column="2"></StackPanel>
 
-        <StackPanel Grid.Column="3"></StackPanel>
+        <!--Does ScrollViewer have to be the grid child for this to work? When the order is StackPanel -> ScrollViewer it does not work..-->
+        <ScrollViewer  Grid.Column="3">
+            <StackPanel>
+                <TextBlock>Thread #4</TextBlock>
+                <ListBox ItemsSource="{Binding RandomTwoNumbers}" ScrollViewer.CanContentScroll="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>(</TextBlock>
+                                <TextBlock Text="{Binding X}"></TextBlock>
+                                <TextBlock>,</TextBlock>
+                                <TextBlock Text="{Binding Y}"></TextBlock>
+                                <TextBlock>)</TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
