@@ -46,7 +46,11 @@ namespace FirstSteps
 
             this.ExampleOfTextBinding = $"This is from the view model constructor from threadId={System.Threading.Thread.CurrentThread.ManagedThreadId}";
             Task.Run(ChangeText);
-            Task.Run(GenerateRandomTwoNumbers);
+
+            //Can't do this when there are two windows with two different dispatchers.. How can both set the global "Application.Current.Dispatcher" proprty?
+            // => They can't.. The one that looses will not be able to update the UI becauses its ui dependant object is now created from a different thread
+            //because that thread happened to invoke "System.Windows.Threading.Dispatcher.Run()" - which blocks to let Dispatcher have control
+            //Task.Run(GenerateRandomTwoNumbers);
         }
 
         private async Task ChangeText()
